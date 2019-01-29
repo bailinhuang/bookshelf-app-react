@@ -1,0 +1,12 @@
+.container-counter{
+  display: flex;
+  flex-direction: column;
+  max-width: 13rem;
+  min-width: 13rem;
+  border: 2px solid black; 
+  margin: 1rem;
+}
+
+.blocked-button{
+  color: blue;
+}

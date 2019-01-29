@@ -1,0 +1,13 @@
+.shelf{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.counter-form-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 2rem; 
+}
