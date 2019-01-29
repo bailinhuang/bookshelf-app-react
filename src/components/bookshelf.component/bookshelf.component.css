@@ -5,9 +5,21 @@
   margin-bottom: 2rem;
 }
 
-.counter-form-container{
+.book-input-form{
   display: flex;
-  justify-content: center;
+  justify-content: center; 
   flex-direction: column;
   margin-bottom: 2rem; 
+  max-width: 30rem;
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.med-width{
+  width: 15rem;
 }

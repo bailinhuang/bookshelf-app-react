@@ -1,7 +1,8 @@
 import React from 'react'
 import { withRouter } from "react-router-dom"
+import './book-details.component.css'
 import { API } from '../../../API'
-// import LogoutButton from '../../../login-page/logout-button/logoutButton';
+import LogoutButton from '../../logout-button.component/logout-button.component';
 
 class BookDetails extends React.Component {
 
@@ -59,28 +60,43 @@ class BookDetails extends React.Component {
       .catch(error => console.error('Error:', error));
   }
 
-  render() { 
+
+  deleteBook = (id) => {
+    fetch(API + '/' + id, {
+      method: 'DELETE', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+        'customer': this.state.customerID
+      }
+    }).then(response => {
+      console.log(response)
+    })
+      .catch(error => console.error('Error:', error));
+  }
+
+  render() {
     return (
       <div>
-        <div>
-          <h1>Details</h1>
-        </div>
-        <h2>{this.state.name}</h2>
-        <h3>{this.state.author}</h3>
+        <LogoutButton />
         <div className="details-container">
-        </div>
-        <div>
-          <label>Name</label>
-          <input id="input-name"></input>
-          <label>Author</label>
-          <input id="input-author"></input>
-          <button onClick={() => this.editBook()}>Edit Book</button>
-        </div>
-        <div>
-          <button onClick={() => {
+          <h1>Details</h1>
+          <h2>{this.state.name}</h2>
+          <h3>{this.state.author}</h3>
+          <div className="details-container">
+          </div>
+          <div className="input-form">
+            <label>Name</label>
+            <input id="input-name"></input>
+            <label>Author</label>
+            <input id="input-author"></input>
+            <button onClick={() => this.editBook()}>Edit Book</button>
+          </div>
+          <div>
+          {/* <button onClick={() => {
             this.props.history.push('/bookshelf')
-            this.props.deleteBook(this.props.match.params.id)
-          }}>Delete</button>
+            this.deleteBook(this.props.match.params.id)
+          }}>Delete</button> */}
+        </div>
         </div>
       </div>
     )

@@ -14,7 +14,7 @@ export default class Bookshelf extends Component {
     };
   }
 
-  componentDidMount = () => { 
+  componentDidMount = () => {
     console.log(this.state.customerID)
     this.fetchBooks(this.state.customerID)
   }
@@ -85,13 +85,17 @@ export default class Bookshelf extends Component {
     return (
       <div>
         <div>
-          <LogoutButton/>
+          <LogoutButton />
         </div>
-        <h1>Welcome {name}</h1>
-        <div className="book-input-form">
-          <label>Name</label><input id="book-name"></input>
-          <label>Author</label><input id="book-author"></input>
-          <button onClick={() => this.addBook()}>Add Book</button>
+        <div className="container">
+          <h1>Welcome {name}</h1>
+          <div className="book-input-form">
+            <label className="med-width">Name</label>
+            <input id="book-name" className="med-width"></input>
+            <label className="med-width">Author</label>
+            <input id="book-author" className="med-width"></input>
+            <button onClick={() => this.addBook()}>Add Book</button>
+          </div>
         </div>
         <div className="shelf">{bookList}</div>
       </div>

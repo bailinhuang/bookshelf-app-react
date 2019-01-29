@@ -1,0 +1,16 @@
+.details-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 
+.input-form label, input, button{
+  width: 30rem;
+} */
