@@ -18,7 +18,8 @@ export default class Bookshelf extends Component {
   }
 
   componentDidMount = () => {
-    console.log('token' + window.sessionStorage.getItem('auth-token'))
+    console.log('token: ' + window.sessionStorage.getItem('auth-token'))
+    // const x = new Promise( window.sessionStorage.getItem('auth-token')).then(this.fetchBooks(this.state.customerID))
     this.fetchBooks(this.state.customerID)
   }
 
@@ -61,18 +62,19 @@ export default class Bookshelf extends Component {
       .catch(error => console.error('Error:', error));
   }
 
-  fetchBooks = () => {
-    fetch(API, {
+  fetchBooks = async () => {
+    let newToken = window.sessionStorage.getItem('auth-token')
+    await fetch(API, {
       method: 'GET',
       headers: {
         'username': this.state.username,
         'password': this.state.password,
-        'auth-token': window.sessionStorage.getItem('auth-token'),
-
+        'auth-token': newToken
       }
     })
       .then((response) => {
         console.log(response)
+        console.log(newToken)
         return response.json()
       })
       .then(
