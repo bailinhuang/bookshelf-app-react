@@ -9,21 +9,27 @@ class BookDetails extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: "",
-      author: ""
+      token: sessionStorage.getItem('auth-token')
     }
   }
 
   componentDidMount = () => {
-    let book = JSON.parse(localStorage.getItem(this.props.match.params.id))
-    this.setState({
-      name: book.name,
-      author: book.author
-    })
-
+    let token = sessionStorage.getItem('auth-token')
+    if (token === null) {
+      console.log(token)
+      this.props.history.push('/')
+    }
+    else {
+      let book = JSON.parse(localStorage.getItem(this.props.match.params.id))
+      this.setState({
+        name: book.name,
+        author: book.author
+      })
+    }
   }
 
   editBook = () => {
+    console.log(window.sessionStorage.getItem('auth-token'))
     let bookName = document.getElementById('input-name').value
     if (bookName === "") {
       bookName = this.state.name
@@ -46,11 +52,11 @@ class BookDetails extends React.Component {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'customer': 'bailin'
+        'auth-token': window.sessionStorage.getItem('auth-token'),
       }
     }).then(res => res.json())
       .then(response => {
-        localStorage.setItem(this.props.match.params.id, JSON.stringify(data))
+        window.sessionStorage.setItem(this.props.match.params.id, JSON.stringify(data))
         this.setState({
           name: bookName,
           author: authorName
@@ -92,11 +98,11 @@ class BookDetails extends React.Component {
             <button onClick={() => this.editBook()}>Edit Book</button>
           </div>
           <div>
-          {/* <button onClick={() => {
+            {/* <button onClick={() => {
             this.props.history.push('/bookshelf')
             this.deleteBook(this.props.match.params.id)
           }}>Delete</button> */}
-        </div>
+          </div>
         </div>
       </div>
     )

@@ -10,12 +10,15 @@ export default class Bookshelf extends Component {
     super(props);
     this.state = {
       customerID: window.sessionStorage.getItem('user'),
+      username: window.sessionStorage.getItem('user'),
+      password: window.sessionStorage.getItem('password'),
+      token: window.sessionStorage.getItem('auth-token'),
       books: []
     };
   }
 
   componentDidMount = () => {
-    console.log(this.state.customerID)
+    console.log('token' + window.sessionStorage.getItem('auth-token'))
     this.fetchBooks(this.state.customerID)
   }
 
@@ -31,11 +34,13 @@ export default class Bookshelf extends Component {
       body: JSON.stringify(newBook), // data can be `string` or {object}!
       headers: {
         'Content-Type': 'application/json',
-        'customer': this.state.customerID
+        'username': this.state.username,
+        'password': this.state.password,
+        'auth-token': window.sessionStorage.getItem('auth-token'),
       }
     }).then(res => res.json())
       .then(response => {
-        localStorage.setItem(this.props.match.params.id, JSON.stringify(newBook))
+        window.sessionStorage.setItem(this.props.match.params.id, JSON.stringify(newBook))
         this.fetchBooks(this.state.customerID)
         console.log('Success:', JSON.stringify(response))
       })
@@ -56,16 +61,18 @@ export default class Bookshelf extends Component {
       .catch(error => console.error('Error:', error));
   }
 
-  fetchBooks = (customer) => {
+  fetchBooks = () => {
     fetch(API, {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-        'customer': customer
+        'username': this.state.username,
+        'password': this.state.password,
+        'auth-token': window.sessionStorage.getItem('auth-token'),
+
       }
     })
-      .then(function (response) {
+      .then((response) => {
+        console.log(response)
         return response.json()
       })
       .then(
